@@ -1,24 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { signInRequest } from '~/store/ducks/auth';
 import Button from '~/styles/components/Button';
 import { Container, SignForm } from '../styles';
 
-const SignIn = () => (
-  <Container>
-    <SignForm onSubmit={() => {}}>
-      <h1>Boas vindas</h1>
+const SignIn = () => {
+  const dispatch = useDispatch();
 
-      <span>E-MAIL</span>
-      <input type="email" name="email" />
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
-      <span>SENHA</span>
-      <input type="password" name="password" />
+  const handleEmailChange = e => {
+    setEmail(e.target.value);
+  };
 
-      <Button size="big" type="submit">
-        Entrar
-      </Button>
-    </SignForm>
-  </Container>
-);
+  const handlePasswordChange = e => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    dispatch.
+  };
+
+  return (
+    <Container>
+      <SignForm onSubmit={handleSubmit}>
+        <h1>Boas vindas</h1>
+
+        <span>E-MAIL</span>
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleEmailChange}
+        />
+
+        <span>SENHA</span>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+
+        <Button size="big" type="submit">
+          Entrar
+        </Button>
+      </SignForm>
+    </Container>
+  );
+};
 
 export default SignIn;
