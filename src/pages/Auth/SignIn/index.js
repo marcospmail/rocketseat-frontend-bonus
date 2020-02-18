@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { signInRequest } from '~/store/ducks/auth';
+import AuthActions from '~/store/ducks/auth';
 import Button from '~/styles/components/Button';
 import { Container, SignForm } from '../styles';
 
-const SignIn = () => {
+export default function SignIn() {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleEmailChange = e => {
     setEmail(e.target.value);
@@ -22,7 +22,7 @@ const SignIn = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    dispatch.
+    dispatch(AuthActions.signInRequest(email, password));
   };
 
   return (
@@ -52,6 +52,4 @@ const SignIn = () => {
       </SignForm>
     </Container>
   );
-};
-
-export default SignIn;
+}
