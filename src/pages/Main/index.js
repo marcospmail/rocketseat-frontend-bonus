@@ -1,5 +1,12 @@
 import React from 'react';
 
-const Main = () => <h1>Main</h1>;
+import TeamSwitcher from '~/components/TeamSwitcher';
 
+import { Container } from './styles';
+
+const Main = () => (
+  <Container>
+    <TeamSwitcher />
+  </Container>
+);
 export default Main;

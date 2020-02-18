@@ -7,11 +7,7 @@ import AuthActions from '../ducks/auth';
 
 export function* signIn({ email, password }) {
   try {
-    console.log(email, password);
-
     const response = yield call(api.post, 'sessions', { email, password });
-
-    console.log(response);
 
     localStorage.setItem('@Omni:token', response.data.token);
 
@@ -27,4 +23,11 @@ export function* signIn({ email, password }) {
       })
     );
   }
+}
+
+export function* signOut() {
+  localStorage.removeItem('@Omni:token');
+  localStorage.removeItem('@Omni:team');
+
+  yield put(push('/signin'));
 }
