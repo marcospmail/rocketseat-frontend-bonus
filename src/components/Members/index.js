@@ -9,12 +9,13 @@ import Modal from '~/components/Modal';
 
 import MembersActions from '~/store/ducks/members';
 
-import { MembersList } from './styles';
+import { MembersList, Invite } from './styles';
 
 const Members = () => {
   const dispatch = useDispatch();
 
   const [roles, setRoles] = useState([]);
+  const [invitedUser, setInvitedUser] = useState('');
 
   const members = useSelector(state => state.members.data);
 
@@ -36,9 +37,27 @@ const Members = () => {
     dispatch(MembersActions.updateRolesRequest(id, newRoles));
   }
 
+  function handleInvite(e) {
+    e.preventDefault();
+    dispatch(MembersActions.inviteMemberRequest(invitedUser));
+  }
+
   return (
     <Modal size="big">
       <h1>Membros</h1>
+
+      <Invite
+        onSubmit={e => {
+          handleInvite(e);
+        }}
+      >
+        <input
+          placeholder="Invite user to team"
+          value={invitedUser}
+          onChange={e => setInvitedUser(e.target.value)}
+        />
+        <Button type="submit">Invite</Button>
+      </Invite>
 
       <form>
         <MembersList>

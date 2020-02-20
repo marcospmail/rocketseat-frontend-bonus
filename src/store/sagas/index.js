@@ -9,7 +9,7 @@ import { TeamTypes } from '../ducks/teams';
 import { getProjects, createProject } from './projects';
 import { ProjectsTypes } from '../ducks/projects';
 
-import { getMembers, updateRoles } from './members';
+import { getMembers, updateRoles, inviteMember } from './members';
 import { MembersTypes } from '../ducks/members';
 
 export default function* rootSaga() {
@@ -26,5 +26,6 @@ export default function* rootSaga() {
 
     takeLatest(MembersTypes.GET_MEMBERS_REQUEST, getMembers),
     takeLatest(MembersTypes.UPDATE_ROLES_REQUEST, updateRoles),
+    takeLatest(MembersTypes.INVITE_MEMBER_REQUEST, inviteMember),
   ]);
 }

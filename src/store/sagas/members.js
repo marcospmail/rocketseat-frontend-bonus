@@ -23,3 +23,18 @@ export function* updateRoles({ id, roles }) {
     );
   }
 }
+
+export function* inviteMember({ email }) {
+  try {
+    yield call(api.post, 'invites', { invites: [email] });
+    yield put(MembersActions.getMembersRequest());
+  } catch (err) {
+    yield put(
+      toastrActions.add({
+        type: 'error',
+        title: 'Falha no login',
+        message: 'Verifique seu e-mail/senha',
+      })
+    );
+  }
+}
