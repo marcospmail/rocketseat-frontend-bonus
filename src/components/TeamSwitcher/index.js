@@ -22,6 +22,12 @@ export default function() {
     dispatch(TeamActions.getTeamsRequest());
   }, []);
 
+  useEffect(() => {
+    if (!activeTeam && teams.length) {
+      dispatch(TeamActions.selectTeam(teams[0]));
+    }
+  }, [teams]);
+
   function handleOnTeamSelect(team) {
     dispatch(TeamActions.selectTeam(team));
   }
@@ -46,7 +52,7 @@ export default function() {
         {teams.map(t => (
           <Team
             key={t.id}
-            active={t.id === activeTeam.id}
+            active={activeTeam && t.id === activeTeam.id}
             onClick={() => handleOnTeamSelect(t)}
           >
             <img
