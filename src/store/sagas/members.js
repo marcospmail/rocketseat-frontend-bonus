@@ -13,16 +13,6 @@ export function* getMembers() {
 export function* updateRoles({ id, roles }) {
   try {
     yield call(api.put, `members/${id}`, { roles: roles.map(r => r.id) });
-
-    console.log('caiuuu');
-
-    yield put(
-      toastrActions.add({
-        type: 'success',
-        title: 'Success',
-        message: 'Roles updated!',
-      })
-    );
   } catch (err) {
     yield put(
       toastrActions.add({
