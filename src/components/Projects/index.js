@@ -31,7 +31,8 @@ const Projects = () => {
     dispatch(ProjectsActions.closeProjectModal());
   }
 
-  function handleNewProjectSubmit() {
+  function handleNewProjectSubmit(e) {
+    e.preventDefault();
     dispatch(ProjectsActions.createNewProjectRequest(newProject));
   }
 
@@ -48,7 +49,7 @@ const Projects = () => {
       </header>
 
       {projects.map(project => (
-        <Project>
+        <Project key={project.id}>
           <p>{project.title}</p>
         </Project>
       ))}
@@ -57,7 +58,7 @@ const Projects = () => {
         <Modal>
           <h1>Criar projeto</h1>
 
-          <form onSubmit={handleNewProjectSubmit}>
+          <form onSubmit={e => handleNewProjectSubmit(e)}>
             <span>NOME</span>
             <input
               value={newProject}
