@@ -58,6 +58,7 @@ const Button = styled.button`
     props.filled === false &&
     css`
       background: none;
+      color: rgba(255, 255, 255, 0.3);
 
       &:hover {
         background: none;

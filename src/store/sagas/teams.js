@@ -16,10 +16,12 @@ export function* createTeam({ name }) {
     yield put(TeamActions.createTeamSuccess(response.data));
     yield put(TeamActions.closeTeamModal());
   } catch (err) {
-    toastrActions.add({
-      type: 'error',
-      title: 'ERro na operação',
-      message: 'Houve um erro, tente novamente',
-    });
+    yield put(
+      toastrActions.add({
+        type: 'error',
+        title: 'ERro na operação',
+        message: 'Houve um erro, tente novamente',
+      })
+    );
   }
 }

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ProjectsActions from '~/store/ducks/projects';
+import MembersActions from '~/store/ducks/members';
 
+import MembersModal from '~/components/Members';
 import Modal from '~/components/Modal';
 import Button from '~/styles/components/Button';
 
@@ -18,6 +20,7 @@ const Projects = () => {
   const projectModalOpen = useSelector(
     state => state.projects.projectModalOpen
   );
+  const membersModalOpen = useSelector(state => state.members.membersModalOpen);
 
   useEffect(() => {
     dispatch(ProjectsActions.getProjectsRequest());
@@ -36,6 +39,10 @@ const Projects = () => {
     dispatch(ProjectsActions.createNewProjectRequest(newProject));
   }
 
+  function openMembersModal() {
+    dispatch(MembersActions.openMembersModal());
+  }
+
   if (!activeTeam) return null;
 
   return (
@@ -44,9 +51,11 @@ const Projects = () => {
         <h1>{activeTeam.name}</h1>
         <div>
           <Button onClick={openProjectModal}>+ Novo</Button>
-          <Button onClick={() => {}}>Membros</Button>
+          <Button onClick={openMembersModal}>Membros</Button>
         </div>
       </header>
+
+      {membersModalOpen && <MembersModal />}
 
       {projects.map(project => (
         <Project key={project.id}>
