@@ -90,6 +90,7 @@ export default function() {
       <Logout
         onClick={() => {
           dispatch(AuthActions.signOut());
+          dispatch(TeamActions.signOut());
         }}
       >
         Sair

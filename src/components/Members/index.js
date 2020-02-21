@@ -6,6 +6,7 @@ import api from '~/services/api';
 
 import Button from '~/styles/components/Button';
 import Modal from '~/components/Modal';
+import Can from '~/components/Can';
 
 import MembersActions from '~/store/ducks/members';
 
@@ -46,18 +47,20 @@ const Members = () => {
     <Modal size="big">
       <h1>Membros</h1>
 
-      <Invite
-        onSubmit={e => {
-          handleInvite(e);
-        }}
-      >
-        <input
-          placeholder="Invite user to team"
-          value={invitedUser}
-          onChange={e => setInvitedUser(e.target.value)}
-        />
-        <Button type="submit">Invite</Button>
-      </Invite>
+      <Can checkPermission="invites_create">
+        <Invite
+          onSubmit={e => {
+            handleInvite(e);
+          }}
+        >
+          <input
+            placeholder="Invite user to team"
+            value={invitedUser}
+            onChange={e => setInvitedUser(e.target.value)}
+          />
+          <Button type="submit">Invite</Button>
+        </Invite>
+      </Can>
 
       <form>
         <MembersList>
@@ -65,14 +68,19 @@ const Members = () => {
             <li key={m.id}>
               <strong>{m.user.name}</strong>
 
-              <Select
-                isMulti
-                options={roles}
-                value={m.roles}
-                getOptionLabel={role => role.name}
-                getOptionValue={role => role.id}
-                onChange={value => handleMemberRolesChange(m.id, value)}
-              />
+              <Can checkRole="administrator">
+                {can => (
+                  <Select
+                    isMulti
+                    isDisabled={!can}
+                    options={roles}
+                    value={m.roles}
+                    getOptionLabel={role => role.name}
+                    getOptionValue={role => role.id}
+                    onChange={value => handleMemberRolesChange(m.id, value)}
+                  />
+                )}
+              </Can>
             </li>
           ))}
         </MembersList>

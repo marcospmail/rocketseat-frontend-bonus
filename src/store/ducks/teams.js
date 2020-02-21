@@ -9,6 +9,7 @@ const { Types, Creators } = createActions({
   closeTeamModal: null,
   createTeamRequest: ['name'],
   createTeamSuccess: ['team'],
+  signOut: null,
 });
 
 export const TeamTypes = Types;
@@ -35,10 +36,13 @@ const closeModal = state => state.merge({ teamModalOpen: false });
 const createTeam = (state, { team }) =>
   state.merge({ data: [...state.data, team] });
 
+const logout = state => state.merge({ active: null });
+
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_TEAMS_SUCCESS]: getSuccess,
   [Types.SELECT_TEAM]: selectTeam,
   [Types.OPEN_TEAM_MODAL]: openModal,
   [Types.CLOSE_TEAM_MODAL]: closeModal,
   [Types.CREATE_TEAM_SUCCESS]: createTeam,
+  [Types.SIGN_OUT]: logout,
 });
