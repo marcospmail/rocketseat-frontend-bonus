@@ -23,8 +23,8 @@ const Projects = () => {
   const membersModalOpen = useSelector(state => state.members.membersModalOpen);
 
   useEffect(() => {
-    dispatch(ProjectsActions.getProjectsRequest());
-  }, []);
+    if (activeTeam) dispatch(ProjectsActions.getProjectsRequest());
+  }, [activeTeam]);
 
   function openProjectModal() {
     dispatch(ProjectsActions.openProjectModal());
